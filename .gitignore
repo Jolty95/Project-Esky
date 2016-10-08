@@ -1,0 +1,52 @@
+# Archivos compilados de LUA
+*.src.rock
+*.luac.out
+*.tar.gz
+
+# Archivos compilados 
+*.cia
+*.3dsx
+*.smdh
+
+# Archivos objeto
+*.o
+*.os
+*.ko
+*.obj
+*.elf
+
+# Cabeceras precompiladas
+*.gch
+*.pch
+
+# Librerias
+*.lib
+*.a
+*.la
+*.lo
+*.def
+*.exp
+
+# Objetos dinamicos
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Ejecutables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Otros
+
+Builder/*.bin
+Builder/*.rsf
+Builder/*.lua
+Builder/*.bat
+Builder/romfs
+Builder/*.cia
+Builder/*.sh
