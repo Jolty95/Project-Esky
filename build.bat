@@ -1,9 +1,9 @@
 @echo off
 cls
-echo Script de compilacion del Proyect: Esky por Jolty95
+echo Script de compilacion del Project: Esky por Jolty95
 echo =======================================
 echo Version: 1.0
-echo Proyecto: Proyect: Esky por Jolty95 para Esky73
+echo Proyecto: Project: Esky por Jolty95 para Esky73
 echo =======================================
 if "%1" == "clean" goto clean
 echo Borrando el directorio romfs....
@@ -35,10 +35,10 @@ echo Creando banner desde los archivos...
 tools\bannertool makebanner -i banner.png -a sonido.wav -o banner.bin
 echo Banner creado.
 echo Creando icono desde archivo...
-tools\bannertool makesmdh -s "Proyect:Esky" -l "Launcher proyect: Esky" -p "Jolty95" -i logo.png -o icono.bin
+tools\bannertool makesmdh -s "Project:Esky" -l "Launcher Project: Esky" -p "Jolty95" -i logo.png -o icono.bin
 echo Icono creado.
 echo Creando archivo CIA ...
-tools\makerom -f cia -o ../proyectEsky.cia -elf bin/lpp-3ds.elf -rsf proyectEsky.rsf -icon icono.bin -banner banner.bin -exefslogo -target t -romfs romfs.bin
+tools\makerom -f cia -o ../ProjectEsky.cia -elf bin/lpp-3ds.elf -rsf ProjectEsky.rsf -icon icono.bin -banner banner.bin -exefslogo -target t -romfs romfs.bin
 echo Archivo CIA creado.
 goto :EOF
 

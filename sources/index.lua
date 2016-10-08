@@ -1,4 +1,4 @@
---** Código fuente del Proyect: Esky
+--** Código fuente del Project: Esky
 -- **********************************
 --
 -- Archivo index.lua
