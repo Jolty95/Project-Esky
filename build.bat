@@ -2,11 +2,13 @@
 cls
 echo Script de compilacion del Project: Esky por Jolty95
 echo =======================================
-echo Version: 1.0
+echo Version: 1.1
 echo Proyecto: Project: Esky por Jolty95 para Esky73
 echo =======================================
 if "%1" == "clean" goto clean
-echo Borrando el directorio romfs....
+echo Borrando compilacion anterior...
+IF EXIST *.cia del /F /Q *.cia
+echo Borrando el directorio romfs...
 IF EXIST Builder\romfs rmdir /S /Q Builder\romfs
 echo Copiando el script actualizado al directorio romfs...
 ::Copia el nuevo índice a romsfs
