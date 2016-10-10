@@ -30,36 +30,46 @@ while true do
 		System.exit()	
 	end	
 	
-	if vida then
-		--si no hay SD cortamos todo		  
-		haySD = System.checkSDMC()
-		if haySD ~= true then
-			vida = false
-		else
-			--si hay SD comprobamos que exista el archivo. suponemos siempre que existe ya que la comprobacion de la SD de System.checkSDMC ha sido 
-			--casi "instantanea". De todos modos, una comprobacion aqui de nuevo seria recomendable
+	--si no hay SD cortamos todo		  
+	haySD = System.checkSDMC()
+	if haySD ~= true then
+		vida = false
+	else
+	
+		if vida == true then
+			--volvemos a comprobar si la SD sigue insertada
 			existeArchivo = System.doesFileExist(ruta)
 			--Si no existe el archivo, lo creamos
-			if existeArchivo ~= true then
-			
+			if System.checkSDMC() == true and existeArchivo ~= true then
+				local file = io.open(ruta, FCREATE)
+				io.write(file, 0, "Change the IP to be your PC's local IP, (run 3DSController.exe to find it),", 75)
+				io.write(file, 76, "\r", 1)
+				io.write(file, 77, "\n", 1)
+				io.write(file, 78, "\r", 1)
+				io.write(file, 79, "\n", 1)
+				io.write(file, 80, "IP: 192.168.1.23", 16)
+				io.write(file, 96, "\r", 1)
+				io.write(file, 97, "\n", 1)
+				io.write(file, 98, "Port: 8889", 10)
+				io.close(file)
 			else
 				if c == 0 then
 					local file = io.open(ruta, FWRITE)
 					local contenido = io.read(file, 0, io.size(file))
 					local ip = string.sub(contenido, 84, 95)
 					local puerto = string.sub(contenido, 104, 107)
-					
+				
 					Screen.refresh()
 					Screen.debugPrint(5,15, "IP: "..ip, Color.new(255,0,0), TOP_SCREEN)
 					Screen.debugPrint(5, 30, "Puerto: "..puerto, Color.new(255,0,0), TOP_SCREEN)
-
 					Screen.waitVblankStart()
 					Screen.flip()
 					io.close(file)
-					
+				
 					c = 1
 				end
 			end			
-		end			
-	end	
-end
+		end
+		
+	end			
+end	
