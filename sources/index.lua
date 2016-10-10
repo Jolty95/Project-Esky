@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 --** Código fuente del Project: Esky
 -- **********************************
 --
@@ -69,3 +70,5 @@ while true do
 		end			
 	end	
 end
+=======
+>>>>>>> parent of a7030cb... Intentando localizar el offset de la posicion de la IP
