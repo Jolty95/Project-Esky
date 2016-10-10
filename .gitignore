@@ -28,13 +28,11 @@
 *.exp
 
 # Objetos dinamicos
-*.dll
 *.so
 *.so.*
 *.dylib
 
 # Ejecutables
-*.exe
 *.out
 *.app
 *.i*86
@@ -43,10 +41,4 @@
 
 # Otros
 
-Builder/*.bin
-Builder/*.rsf
-Builder/*.lua
-Builder/*.bat
 Builder/romfs
-Builder/*.cia
-Builder/*.sh
