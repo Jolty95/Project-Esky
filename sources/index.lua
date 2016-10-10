@@ -1,8 +1,8 @@
---** Código fuente del Proyect: Esky
+--** Codigo fuente del Proyect: Esky
 -- **********************************
 --
 -- Archivo index.lua
--- *Lectura del archivo de configuración de IP y guardado con autosalida a HOME
+-- *Lectura del archivo de configuracion de IP y guardado con autosalida a HOME
 
 
 --Variables
