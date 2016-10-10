@@ -45,14 +45,18 @@ while true do
 			else
 				if c == 0 then
 					local file = io.open(ruta, FWRITE)
-					local oldIP = io.read(file, 83, io.size(file))
-					io.close(file)
-					local test = io.open("/test.txt",FCREATE) 
-					io.write(test, 0, oldIP, 100)
-					io.close(test)
+					local contenido = io.read(file, 0, io.size(file))
+					local ip = string.sub(contenido, 84, 95)
+					local puerto = string.sub(contenido, 104, 107)
+					
 					Screen.refresh()
-					Screen.debugPrint(5,15, "IP: "..oldIP, Color.new(255,0,0), TOP_SCREEN)
+					Screen.debugPrint(5,15, "IP: "..ip, Color.new(255,0,0), TOP_SCREEN)
+					Screen.debugPrint(5, 30, "Puerto: "..puerto, Color.new(255,0,0), TOP_SCREEN)
+
 					Screen.waitVblankStart()
+					Screen.flip()
+					io.close(file)
+					
 					c = 1
 				end
 			end			
