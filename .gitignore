@@ -7,13 +7,13 @@
 *.cia
 *.3dsx
 *.smdh
+*.bin
 
 # Archivos objeto
 *.o
 *.os
 *.ko
 *.obj
-*.elf
 
 # Cabeceras precompiladas
 *.gch
