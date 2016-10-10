@@ -41,23 +41,18 @@ while true do
 			existeArchivo = System.doesFileExist(ruta)
 			--Si no existe el archivo, lo creamos
 			if System.checkSDMC() == true and existeArchivo ~= true then
-				local file = io.open(ruta, FCREATE)
-				io.write(file, 0, "Change the IP to be your PC's local IP, (run 3DSController.exe to find it),", 75)
-				io.write(file, 76, "\r", 1)
-				io.write(file, 77, "\n", 1)
-				io.write(file, 78, "\r", 1)
-				io.write(file, 79, "\n", 1)
-				io.write(file, 80, "IP: 192.168.1.23", 16)
-				io.write(file, 96, "\r", 1)
-				io.write(file, 97, "\n", 1)
-				io.write(file, 98, "Port: 8889", 10)
+				local file = io.open(ruta, FCREATE)				
+				io.write(file, 0, "IP: 192.168.1.13", 16)
+				io.write(file, 18, "\r\n", 2)
+				io.write(file, 20, "Port: 8889", 10)
 				io.close(file)
+			
 			else
 				if c == 0 then
 					local file = io.open(ruta, FWRITE)
 					local contenido = io.read(file, 0, io.size(file))
-					local ip = string.sub(contenido, 84, 95)
-					local puerto = string.sub(contenido, 104, 107)
+					local ip = string.sub(contenido, 5, 16)
+					local puerto = string.sub(contenido, 26, 30)
 				
 					Screen.refresh()
 					Screen.debugPrint(5,15, "IP: "..ip, Color.new(255,0,0), TOP_SCREEN)
