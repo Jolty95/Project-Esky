@@ -8,6 +8,7 @@
 *.3dsx
 *.smdh
 *.bin
+*.elf
 
 # Archivos objeto
 *.o
@@ -40,5 +41,6 @@
 *.hex
 
 # Otros
-
+model
+sources_2
 Builder/romfs
