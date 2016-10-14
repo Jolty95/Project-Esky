@@ -41,6 +41,7 @@
 *.hex
 
 # Otros
+build
 model
 sources_2
 Builder/romfs
