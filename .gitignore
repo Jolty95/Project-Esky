@@ -7,7 +7,6 @@
 *.cia
 *.3dsx
 *.smdh
-*.bin
 *.elf
 
 # Archivos objeto
@@ -45,3 +44,6 @@ build
 model
 sources_2
 Builder/romfs
+Builder/banner.bin
+Builder/icono.bin
+Builder/romfs.bin
