@@ -5,75 +5,10 @@
 #include <setjmp.h>
 #include <3ds.h>
 
-//#include "drawing.h"
-//#include "../u/util.h"
-
-// Numero de items en el menu
-#define lista 4
-
-// Numero de columnas de la pantalla superior
-#define COLUMNAS_SUP 50
-// Numero de columnas de la pantalla inferior
-#define COLUMNAS_INF 40
-// Numero donde empieza el texto
-#define INDICE 5
-
-inline void clearScreen(void) {
-	u8 *frame = gfxGetFramebuffer(GFX_BOTTOM, GFX_LEFT, NULL, NULL);
-	memset(frame, 0, 320 * 240 * 3);
-}
-
-// Refresca la pantalla superior
-void actualiza(int opcion, PrintConsole topScreen, char *menu[], int n) {
-	consoleSelect(&topScreen);
-	for (int i = 0; i < n; i++) {
-		if (i == opcion) 
-			printf("\x1b[%d;%dH> %s", 12 + i, INDICE + 2, menu[i]);
-		else 
-			printf("\x1b[%d;%dH  %s", 12 + i, INDICE + 2, menu[i]);
-	}
-}
-
-void bloqueo(char *mensaje, int tipo) {
-
-	if (tipo == 0) {
-		
-		u32 wifi = 0;
-
-		while (aptMainLoop()) {
-			hidScanInput();
-
-			clearScreen();
-			
-			if (R_SUCCEEDED(ACU_GetWifiStatus(&wifi)) && wifi){
-				clearScreen();
-				printf("\x1b[%d;%dH %s", 10, 1, "Reiniciando servicios...");
-				break;
-			}
-			
-			printf("\x1b[%d;%dH %s", 10, 1, mensaje);
-			
-			
-			gfxFlushBuffers();
-			gspWaitForVBlank();
-			gfxSwapBuffers();
-		}
-	}
-	else {
-		while (aptMainLoop()) {
-			hidScanInput();
-
-			clearScreen();
-			printf("\x1b[%d;%dH%s", 10, 1, mensaje);
-
-			gfxFlushBuffers();
-			gspWaitForVBlank();
-			gfxSwapBuffers();
-		}
-	}
-}
-
-// MAIN SIEMPRE DEBAJO
+#include "main.h"
+#include "util.h"
+#include "pantalla.h"
+#include "mem.h"
 
 int main() {
 	
@@ -96,22 +31,21 @@ int main() {
 	// Guardamos en una variable el estado del pulsador wifi
 	u32 wifi = 0;
 	
-	// Comprobamos el pulsador. El programa NO se pondra en marcha hasta que al menos una vez el pulsador wifi este encendido
 	consoleSelect(&topScreen);
 
 	// Creamos un result para almacenar el estado del pulsador wifi
 	
 	Result ret = R_SUCCEEDED(ACU_GetWifiStatus(&wifi)) && wifi;
 	
+	// Comprobamos el pulsador. El programa no se pondra en marcha hasta que al menos una vez el pulsador wifi este encendido
 	if(!ret){
-		printf("\x1b[%d;%dEstado wifi:%lx\x1b[0m", 10, 10, wifi);
-
 		consoleSelect(&bottomScreen);
 
 		bloqueo("El deslizador WIFI esta apagado", 0);
+		
+		borrarInferior();
 	}
 	
-	clearScreen();
 	
 	// Selecionamos la pantalla superior
 	consoleSelect(&topScreen);
@@ -123,22 +57,34 @@ int main() {
 	char* menu[lista] = {"Editar IP", "Editar y controlar PC", "Controlar PC", "Salir"};
 	
 	// Dibujamos en la pantalla un mensaje en verde
-	printf("\x1b[%d;%dH\x1b[31m---------\x1b[0m\x1b[32mProject: E S K Y \x1b[0m\x1b[31m---------\x1b[0m", 8, INDICE);
+	printf("\x1b[%d;%dH\x1b[31m---------\x1b[0m\x1b[32mProject: E S K Y \x1b[0m\x1b[31m---------\x1b[0m", 7, INDICE);
 	
 	// Refresca la pantalla
 	actualiza(opcion, topScreen, menu, lista);
+			
+	// Intenta abrir el archivo 
+	FILE *file;
+    file = fopen(RUTA, "r");
+	if (file == NULL){
+		bloqueo("", 1);
+	}
+	
+	
+	// Escribimos la IP de 3DSController.ini
+//	prinf("\xib[%d;%dHIP Consola: \x1b[30%d \x1b[0m   -  IP guardada: \x1b[34%d \x1b[0m", 12 + lista + 2, INDICE + 1, IP, "test")
+	
+	//printf("\x1b[%d;%dH IP guardada: %s\x1b[0m ", 3, INDICE, ???);
 	
 	// Volvemos a selecionar la pantalla superior
 	consoleSelect(&topScreen);
 	
-	// Escribimos la IP de la consola y la IP de 3DSController.initgraph
-//	prinf("\xib[%d;%dHIP Consola: \x1b[30%d \x1b[0m   -  IP guardada: \x1b[34%d \x1b[0m", 12 + lista + 2, INDICE + 1, IP, "test")
-	
 	// Escribimos el mensaje
 	printf("\x1b[%d;%dHPulsa A para elegir una opcion.", 12 + lista + INDICE, INDICE + 1);
 	printf("\x1b[%d;%dHVersion de \x1b[31mpruebas.\x1b[0m", 12 + lista + INDICE + 2, INDICE + 1);
-
 	
+	
+	// Inicializamos una variable para romper el bucle principal y parar la ejecucion	
+	bool salir = false;
 	
 	// Bucle principal
 	while(aptMainLoop()) {
@@ -154,11 +100,11 @@ int main() {
 		ret = R_SUCCEEDED(ACU_GetWifiStatus(&wifi)) && wifi;
 	
 		if(!ret){
-			printf("\x1b[%d;%dEstado wifi:%lx\x1b[0m", 1, 1, wifi);
-
 			consoleSelect(&bottomScreen);
 
 			bloqueo("El deslizador WIFI esta apagado", 0);
+			
+			borrarInferior();
 		}
 		
 		
@@ -181,37 +127,47 @@ int main() {
 		// Si pulsas A
 		if (hidKeysDown() & KEY_A) {
 			switch (opcion) {
+				
 				case 0 : {					
 					// Volvemos a selecionar la pantalla inferior					
 					consoleSelect(&bottomScreen);
-					printf("\x1b[%d;%dHHola E S K Y!!!!", 5, 5);
+					printf("\x1b[%d;%dHMenu 1", 5, 5);
 					break;
 				}
 				case 1 : {
 					// Volvemos a selecionar la pantalla inferior					
 					consoleSelect(&bottomScreen);
-					printf("\x1b[%d;%dHHola umb....umbumbumb", 5, 5);
+					printf("\x1b[%d;%dHMenu 2", 5, 5);
+					break;
+				}
+				case 2 : {
+					// Volvemos a selecionar la pantalla inferior					
+					consoleSelect(&bottomScreen);
+					printf("\x1b[%d;%dHMenu 3", 5, 5);
 					break;
 				}
 				case 3 : {
-					// Volvemos a selecionar la pantalla inferior					
-					consoleSelect(&bottomScreen);
-					printf("\x1b[%d;%dHHola umb....umbumbumb", 5, 5);
-					break;
-				}
-				case 4 : {
-					// Volvemos a selecionar la pantalla inferior					
-					consoleSelect(&bottomScreen);
-					printf("\x1b[%d;%dHHola umb....umbumbumb", 5, 5);
+					// Salimos
+					salir = true;
 					break;
 				}
 			}
 		}
 		
+		// Si salir es true, salimos		
+		if (salir == true) break;
+		
 		// Limpiamos los buffers graficos
 		gfxFlushBuffers();
 		gfxSwapBuffers();
 	}
+	
+	// Volvemos a limpiar 
+	gfxFlushBuffers();
+	gfxSwapBuffers();
+	
+	// Cerramos la comunicacion AC
+	acExit();
 	
 	// Cerramos la comunicacion con la SD
 	sdmcExit();
