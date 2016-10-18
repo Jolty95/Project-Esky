@@ -9,4 +9,8 @@ void bloqueo(char *mensaje, int tipo);
 
 // Crea el archivo de configuracion
 void creaArchivo(void);
+
+// Lee la ip del archivo de configuracion
+char getIP();
+
 #endif

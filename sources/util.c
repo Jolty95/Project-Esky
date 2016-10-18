@@ -7,6 +7,10 @@
 #include "pantalla.h"
 #include <string.h>
 
+/** 3DSController.ini */
+unsigned char OFFSET[28] = {0x49, 0x50, 0x3A, 0x20, 0x31, 0x39, 0x32, 0x2E, 0x31, 0x36, 0x38, 0x2E, 0x31, 0x2E, 0x39, 0x39,
+							0x0D, 0x0A, 0x50, 0x6F, 0x72, 0x74, 0x3A, 0x20, 0x38, 0x38, 0x38, 0x39};
+
 void actualiza(int opcion, PrintConsole topScreen, char *menu[], int n) {
 	consoleSelect(&topScreen);
 	for (int i = 0; i < n; i++) {
@@ -83,20 +87,15 @@ void bloqueo(char *mensaje, int tipo) {
 
 void creaArchivo(void)
 {
-	static char buf[100];		
-	static char string[100];
 	
-	
-	for (int i = 0; i < 100; i++) string[i] = 0;
-	char x[100] = "IP: 192.168.1.1\nPort: 8889";
-	
-	for (int i = 0; i < 100; i++) string[i] = x[i];
+	FILE *archivo = fopen(RUTA, "wb");
+	fwrite(OFFSET,sizeof(OFFSET),1,archivo);
+	fclose(archivo);	
 
-	
-	memcpy(buf, string, 100);
-	string[99] = '\0';
-	
-	FILE *set = fopen(RUTA, "wb");
-	fwrite(buf, 1, 19, set);
-	fclose(set);	
+}
+
+char getIP()
+{
+	FILE *archivo = fopen(RUTA, "rb");
+	fread()
 }

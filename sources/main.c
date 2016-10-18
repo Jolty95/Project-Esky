@@ -62,16 +62,16 @@ int main() {
 	// Refresca la pantalla
 	actualiza(opcion, topScreen, menu, lista);
 			
-	// Intenta abrir el archivo 
+	// Intenta abrir el archivo . Si no existe, lo crea
 	FILE *file;
     file = fopen(RUTA, "r");
 	if (file == NULL){
 		bloqueo("", 1);
 	}
 	
+	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini
 	
-	// Escribimos la IP de 3DSController.ini
-//	prinf("\xib[%d;%dHIP Consola: \x1b[30%d \x1b[0m   -  IP guardada: \x1b[34%d \x1b[0m", 12 + lista + 2, INDICE + 1, IP, "test")
+	prinf("\xib[%d;%dHIP guardada: \x1b[30%d \x1b[0m \x1b[0m", 12 + lista + 2, INDICE + 1, getIP(),)
 	
 	//printf("\x1b[%d;%dH IP guardada: %s\x1b[0m ", 3, INDICE, ???);
 	
