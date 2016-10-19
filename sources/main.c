@@ -79,6 +79,7 @@ int main() {
 	// Definimos la lista del menu
 	char* menu[lista] = {"Editar IP", "Editar y controlar PC", "Controlar PC", "Salir"};
 
+	consoleSelect(&topScreen);
 	// Dibujamos en la pantalla un mensaje en verde
 	printf("\x1b[%d;%dH\x1b[31m---------\x1b[0m\x1b[32mProject: E S K Y \x1b[0m\x1b[31m---------\x1b[0m", 7, INDICE);
 
