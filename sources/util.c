@@ -86,16 +86,41 @@ void bloqueo(char *mensaje, int tipo) {
 }
 
 void creaArchivo(void)
-{
-	
+{	
 	FILE *archivo = fopen(RUTA, "wb");
 	fwrite(OFFSET,sizeof(OFFSET),1,archivo);
-	fclose(archivo);	
-
+	fclose(archivo);
 }
 
-char getIP()
+void getIP(char* ip)
 {
-	FILE *archivo = fopen(RUTA, "rb");
-	fread()
+	FILE *archivo = fopen(RUTA, "r+");	
+	char tmp[28] = {0};
+	fread(tmp, sizeof(tmp), 1, archivo);	
+	char *nombre = "IP: ";	
+	char *inicio = strstr(tmp, nombre);
+	inicio += strlen(nombre);
+	char *fin = strstr(inicio, "\n");
+	size_t tam = (size_t)fin - (size_t)inicio;
+	strncpy(ip, inicio, tam);
+	ip[tam] = '\0';	
+	fclose(archivo);	
+}
+
+unsigned long CRC32(unsigned char *mensaje) {
+   long i, j;
+   unsigned long byte, crc, mask;
+
+   i = 0;
+   crc = 0xFFFFFFFF;
+   while (mensaje[i] != 0) {
+      byte = mensaje[i];
+      crc = crc ^ byte;
+      for (j = 7; j >= 0; j--) {
+         mask = -(crc & 1);
+         crc = (crc >> 1) ^ (0xEDB88320 & mask);
+      }
+      i = i + 1;
+   }
+   return ~crc;
 }

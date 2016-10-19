@@ -11,6 +11,9 @@ void bloqueo(char *mensaje, int tipo);
 void creaArchivo(void);
 
 // Lee la ip del archivo de configuracion
-char getIP();
+void getIP(char* ip);
+
+// Hace un check CRC32
+unsigned long crc32b(unsigned char *message);
 
 #endif
