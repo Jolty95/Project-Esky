@@ -69,12 +69,12 @@ int main() {
 		bloqueo("", 1);
 	}
 	
-	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini
+	// Creamos un puntero para almacenar la ip guardada.
+	char ip[20] = {'\0'};
 	
-	prinf("\xib[%d;%dHIP guardada: \x1b[30%d \x1b[0m \x1b[0m", 12 + lista + 2, INDICE + 1, getIP(),)
-	
-	//printf("\x1b[%d;%dH IP guardada: %s\x1b[0m ", 3, INDICE, ???);
-	
+	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini	
+	printf("\x1b[%d;%dHIP guardada: \x1b[30%s \x1b[0m \x1b[0m", 12 + lista + 2, INDICE + 1, ip);
+		
 	// Volvemos a selecionar la pantalla superior
 	consoleSelect(&topScreen);
 	
