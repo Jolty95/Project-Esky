@@ -27,9 +27,8 @@ void bloqueo(char *mensaje, int tipo) {
 	Case 0:
 		-Deslizador wifi apagado
 	Case 1:
-		-Archivo 3DSController.ini no encontrado
-	Case -1:
-		-Excepcion no controlada
+		-Archivo 3DSController.ini no encontrado o CRC no valido
+
 */
 
 	switch(tipo){
@@ -64,23 +63,7 @@ void bloqueo(char *mensaje, int tipo) {
 			gspWaitForVBlank();
 			gfxSwapBuffers();
 			break;
-		}
-	case -1:{
-			while (aptMainLoop()) {
-				hidScanInput();
-
-				borrarInferior();
-				
-				
-				printf("\x1b[%d;%dH %s", 10, 1, mensaje);			
-				
-				gfxFlushBuffers();
-				gspWaitForVBlank();
-				gfxSwapBuffers();
-			}
-			break;
-		
-		}
+		}	
 	}
 	
 }

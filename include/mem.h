@@ -23,4 +23,7 @@
  
 */
 
+// CRC archivo valido
+#define CRC 0xec951452l
+
 #endif

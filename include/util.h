@@ -14,6 +14,6 @@ void creaArchivo(void);
 void getIP(char* ip);
 
 // Hace un check CRC32
-unsigned long crc32b(unsigned char *message);
+unsigned long CRC32(unsigned char *mensaje) {
 
 #endif
