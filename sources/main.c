@@ -72,6 +72,10 @@ int main() {
 	char ip[20] = {'\0'};
 	getIP(ip);
 	
+	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini
+	consoleSelect(&bottomScreen);	
+	printf("\x1b[%d;%dHIP guardada: \x1b[31m %s \x1b[0m \x1b[0m", lista, INDICE + 1, ip);
+
 	// Definimos la lista del menu
 	char* menu[lista] = {"Editar IP", "Editar y controlar PC", "Controlar PC", "Salir"};
 
@@ -80,10 +84,6 @@ int main() {
 
 	// Refresca la pantalla
 	actualiza(opcion, topScreen, menu, lista);
-
-	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini
-	consoleSelect(&bottomScreen);	
-	printf("\x1b[%d;%dHIP guardada: \x1b[30%s \x1b[0m \x1b[0m", lista, INDICE + 1, ip);
 
 	// Volvemos a selecionar la pantalla superior
 	consoleSelect(&topScreen);
