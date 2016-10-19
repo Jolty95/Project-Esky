@@ -73,7 +73,6 @@ int main() {
 	fread(tmp, sizeof(tmp), 1, file);
 
 	// Hacemos una comprobacion CRC32. Si no pasa la comprobacion volvemos a crear el archivo
-	unsigned long checksum = CRC32(tmp);
 	if (CRC32(tmp) != CRC){
 		bloqueo("", 1);
 	}
