@@ -59,7 +59,8 @@ int main() {
 	if (file == NULL){
 		bloqueo("", 1);
 	}
-
+	fclose(file);	
+	file = fopen(RUTA, "r");	
 	unsigned char tmp[28] = {0};
 	fread(tmp, sizeof(tmp), 1, file);
 
@@ -69,7 +70,6 @@ int main() {
 	}
 
 	char ip[20] = {'\0'};
-	fclose(file);	
 	getIP(ip);
 	
 	// Definimos la lista del menu
@@ -81,8 +81,9 @@ int main() {
 	// Refresca la pantalla
 	actualiza(opcion, topScreen, menu, lista);
 
-	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini	
-	printf("\x1b[%d;%dHIP guardada: \x1b[30%s \x1b[0m \x1b[0m", 12 + lista + 2, INDICE + 1, ip);
+	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini
+	consoleSelect(&bottomScreen);	
+	printf("\x1b[%d;%dHIP guardada: \x1b[30%s \x1b[0m \x1b[0m", lista, INDICE + 1, ip);
 
 	// Volvemos a selecionar la pantalla superior
 	consoleSelect(&topScreen);
@@ -161,6 +162,13 @@ int main() {
 					break;
 				}
 			}
+		}
+		
+		// DEBUG SOLO
+		
+		if (hidKeysDown() & KEY_R){
+			remove(RUTA);
+			break;
 		}
 		
 		// Si salir es true, salimos		
