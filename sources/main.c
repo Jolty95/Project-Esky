@@ -53,15 +53,6 @@ int main() {
 	// Definimos un entero que almacene la opcion selecionada
 	int opcion = 0;
 
-	// Definimos la lista del menu
-	char* menu[lista] = {"Editar IP", "Editar y controlar PC", "Controlar PC", "Salir"};
-
-	// Dibujamos en la pantalla un mensaje en verde
-	printf("\x1b[%d;%dH\x1b[31m---------\x1b[0m\x1b[32mProject: E S K Y \x1b[0m\x1b[31m---------\x1b[0m", 7, INDICE);
-
-	// Refresca la pantalla
-	actualiza(opcion, topScreen, menu, lista);
-
 	// Intenta abrir el archivo . Si no existe, lo crea.
 	FILE *file;
 	file = fopen(RUTA, "r");
@@ -80,6 +71,15 @@ int main() {
 	char ip[20] = {'\0'};
 	fclose(file);	
 	getIP(ip);
+	
+	// Definimos la lista del menu
+	char* menu[lista] = {"Editar IP", "Editar y controlar PC", "Controlar PC", "Salir"};
+
+	// Dibujamos en la pantalla un mensaje en verde
+	printf("\x1b[%d;%dH\x1b[31m---------\x1b[0m\x1b[32mProject: E S K Y \x1b[0m\x1b[31m---------\x1b[0m", 7, INDICE);
+
+	// Refresca la pantalla
+	actualiza(opcion, topScreen, menu, lista);
 
 	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini	
 	printf("\x1b[%d;%dHIP guardada: \x1b[30%s \x1b[0m \x1b[0m", 12 + lista + 2, INDICE + 1, ip);
