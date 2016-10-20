@@ -74,7 +74,7 @@ int main() {
 	
 	// A partir de aqui el archivo existe. Escribimos la IP de 3DSController.ini
 	consoleSelect(&bottomScreen);	
-	printf("\x1b[%d;%dHIP guardada: \x1b[31m %s \x1b[0m \x1b[0m", lista, INDICE + 1, ip);
+	printf("\x1b[%d;%dHIP guardada: \x1b[31m %s \x1b[0m \x1b[0m", 2, 3, ip);
 
 	// Definimos la lista del menu
 	char* menu[lista] = {"Editar IP", "Editar y controlar PC", "Controlar PC", "Salir"};
