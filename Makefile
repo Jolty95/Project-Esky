@@ -118,7 +118,7 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).3ds $(OUTPUT).cia $(OUTPUT).smdh $(TARGET).elf $(OUTPUT)_stripped.elf
+	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).cia $(TARGET).elf
 
 
 #---------------------------------------------------------------------------------
@@ -138,13 +138,9 @@ $(OUTPUT).3dsx	:	$(OUTPUT).elf
 
 $(OUTPUT).elf	:	$(OFILES)
 
-$(OUTPUT)_stripped.elf: $(OUTPUT).elf
-	@cp $(OUTPUT).elf $(OUTPUT)_stripped.elf
-	@$(PREFIX)strip $(OUTPUT)_stripped.elf
-
-$(OUTPUT).cia: $(OUTPUT)_stripped.elf $(TOPDIR)/assets/banner.bin $(TOPDIR)/assets/icono.bin
-	@makerom -f cia -o $(OUTPUT).cia -rsf $(TOPDIR)/assets/cia.rsf -target t -exefslogo -elf $(OUTPUT)_stripped.elf -icon $(TOPDIR)/assets/icono.bin -banner $(TOPDIR)/assets/banner.bin -DAPP_TITLE="$(APP_TITLE)" -DAPP_PRODUCT_CODE="$(APP_PRODUCT_CODE)" -DAPP_UNIQUE_ID="$(APP_UNIQUE_ID)" -DAPP_ROMFS="$(TOPDIR)/$(ROMFS)"
-	@rm -fr $(OUTPUT).elf $(OUTPUT)_stripped.elf
+$(OUTPUT).cia: $(TOPDIR)/assets/banner.bin $(TOPDIR)/assets/icono.bin
+	@makerom -f cia -o $(OUTPUT).cia -rsf $(TOPDIR)/assets/cia.rsf -target t -exefslogo -elf $(OUTPUT).elf -icon $(TOPDIR)/assets/icono.bin -banner $(TOPDIR)/assets/banner.bin
+	@rm -fr $(OUTPUT).elf
 	@echo "built ... $(notdir $@)"
 
 #---------------------------------------------------------------------------------
