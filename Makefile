@@ -37,7 +37,6 @@ APP_DESCRIPTION :=  "Lanzador del Project:Esky"
 APP_AUTHOR      :=  "Jolty"
 APP_PRODUCT_CODE:=  ESK-UMB-JOLT
 APP_UNIQUE_ID   :=  0x7395
-ICON            :=  assets/icono.png
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -107,19 +106,6 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 
 export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
-ifeq ($(strip $(ICON)),)
-	icons := $(wildcard *.png)
-	ifneq (,$(findstring $(TARGET).png,$(icons)))
-		export APP_ICON := $(TOPDIR)/$(TARGET).png
-	else
-		ifneq (,$(findstring icon.png,$(icons)))
-			export APP_ICON := $(TOPDIR)/icon.png
-		endif
-	endif
-else
-	export APP_ICON := $(TOPDIR)/$(ICON)
-endif
-
 .PHONY: $(BUILD) clean all
 
 #---------------------------------------------------------------------------------
@@ -158,6 +144,7 @@ $(OUTPUT)_stripped.elf: $(OUTPUT).elf
 
 $(OUTPUT).cia: $(OUTPUT)_stripped.elf $(TOPDIR)/assets/banner.bin $(TOPDIR)/assets/icono.bin
 	@makerom -f cia -o $(OUTPUT).cia -rsf $(TOPDIR)/assets/cia.rsf -target t -exefslogo -elf $(OUTPUT)_stripped.elf -icon $(TOPDIR)/assets/icono.bin -banner $(TOPDIR)/assets/banner.bin -DAPP_TITLE="$(APP_TITLE)" -DAPP_PRODUCT_CODE="$(APP_PRODUCT_CODE)" -DAPP_UNIQUE_ID="$(APP_UNIQUE_ID)" -DAPP_ROMFS="$(TOPDIR)/$(ROMFS)"
+	@rm -fr $(OUTPUT).elf $(OUTPUT)_stripped.elf
 	@echo "built ... $(notdir $@)"
 
 #---------------------------------------------------------------------------------
