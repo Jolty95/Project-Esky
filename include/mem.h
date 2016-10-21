@@ -26,4 +26,10 @@
 // CRC archivo valido
 #define CRC 0xec951452l
 
+/** Controlador */
+
+#define BUF1 0x300
+#define BUF2 0x20
+#define TITLE 0x00040000000F0FC200
+
 #endif
