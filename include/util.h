@@ -14,7 +14,7 @@ void creaArchivo(void);
 void getIP(char* ip);
 
 // Hace un check CRC32
-unsigned long CRC32(unsigned char *mensaje);
+unsigned int CRC32(unsigned char *mensaje);
 
 // Abre el controlador
 void abrirControlador(void);
