@@ -90,7 +90,8 @@ void getIP(char* ip)
 	fclose(archivo);	
 }
 
-unsigned long CRC32(unsigned char *mensaje) {
+unsigned long CRC32(unsigned char *mensaje)
+{
    long i, j;
    unsigned long byte, crc, mask;
 
@@ -106,4 +107,16 @@ unsigned long CRC32(unsigned char *mensaje) {
       i = i + 1;
    }
    return ~crc;
+}
+
+void abrirControlador(void)
+{
+	u8 param[BUF0];
+	u8 hmac[BUF1];
+	
+	memset(param, 0, sizeof(param));
+	memset(hmac, 0, sizeof(hmac));
+	
+	APT_PrepareToDoApplicationJump(0, TITLE, 0);
+	APT_DoApplicationJump(param, sizeof(param), hmac);
 }

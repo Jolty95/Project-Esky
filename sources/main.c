@@ -152,15 +152,8 @@ int main() {
 					break;
 				}
 			case 2 : {
-					// Abrimos el controlador y cerramos esta aplicacion				
-					u8 buf0[BUF1];
-					u8 buf1[BUF2];
-					
-					memset(buf0, 0, BUF1);
-					memset(buf1, 0, BUF2);
-					
-					APT_PrepareToDoAppJump(0, TITLE, 0);
-					APT_DoAppJump(BUF1, BUF2, buf0, buf1);
+					// Abrimos el controlador y cerramos esta aplicacion
+					abrirControlador();
 					break;
 				}
 			case 3 : {

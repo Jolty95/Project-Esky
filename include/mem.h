@@ -28,8 +28,8 @@
 
 /** Controlador */
 
-#define BUF1 0x300
-#define BUF2 0x20
-#define TITLE 0x00040000000F0FC200
+#define BUF0 0x300
+#define BUF1 0x20
+#define TITLE 0x000400000F800100LL
 
 #endif
