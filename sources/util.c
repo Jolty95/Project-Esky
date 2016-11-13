@@ -73,6 +73,7 @@ void creaArchivo(void)
 {	
 	FILE *archivo = fopen(RUTA, "wb");
 	fwrite(OFFSET,sizeof(OFFSET),1,archivo);
+	
 	fclose(archivo);
 }
 
