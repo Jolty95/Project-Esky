@@ -60,12 +60,13 @@ int main() {
 		bloqueo("", 1);
 	}
 	fclose(file);	
+	
 	file = fopen(RUTA, "r");	
-	unsigned char tmp[TAM_CRC] = {0};
-	fread(tmp, sizeof(tmp), 1, file);
+	unsigned char crcString[TAM_CRC] = {0};
+	fread(crcString, sizeof(crcString), 1, file);
 
 	// Hacemos una comprobacion CRC32. Si no pasa la comprobacion volvemos a crear el archivo
-	if (CRC32(tmp) != CRC){
+	if (CRC32(crcString) != CRC){
 		bloqueo("", 1);
 	}
 

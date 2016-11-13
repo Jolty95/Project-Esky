@@ -27,7 +27,7 @@
 */
 
 // CRC archivo valido
-#define CRC 0xec951452l
+#define CRC 0x7413AE37
 #define TAM_CRC 37
 #define TAM_OFF 48
 
