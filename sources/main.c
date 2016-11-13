@@ -66,9 +66,9 @@ int main() {
 	fread(crcString, sizeof(crcString), 1, file);
 
 	// Hacemos una comprobacion CRC32. Si no pasa la comprobacion volvemos a crear el archivo
-	if (CRC32(crcString) != CRC){
-		bloqueo("", 1);
-	}
+	//if (CRC32(crcString) != CRC){
+	//	bloqueo("", 1);
+	//}
 
 	char ip[20] = {'\0'};
 	getIP(ip);
