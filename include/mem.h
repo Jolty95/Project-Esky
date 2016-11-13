@@ -26,7 +26,7 @@
  
 */
 
-// CRC archivo valido
+// CRC archivo valido TODO
 #define CRC 0x7413AE37
 #define TAM_CRC 37
 #define TAM_OFF 48
